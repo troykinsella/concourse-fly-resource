@@ -19,7 +19,6 @@ login() {
 
   set +e
   local out=$($FLY login -t main -c "$url" --username="$username" --password="$password" 2>&1)
-  set -e
 
   # This sucks
   echo "$out" | grep "fly -t main sync" > /dev/null && {
@@ -27,6 +26,7 @@ login() {
     fetch_fly;
     login "$url" "$username" "$password" yes;
   }
+  set -e
 }
 
 init_fly() {
