@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -e
+
+exec 3>&1 # make stdout available as fd 3 for the result
+exec 1>&2 # redirect all output to stderr for logging
+
+. $(dirname $0)/common.sh
+
+payload=$(mktemp $TMPDIR/fly-resource-request.XXXXXX)
+cat > $payload <&0
+
+url=$(jq -r '.source.url // ""' < $payload)
+test -z "$url" && { echo "Must supply 'url' source attribute"; exit 1; }
+
+username=$(jq -r '.source.username // ""' < $payload)
+test -z "$username" && { echo "Must supply 'username' source attribute"; exit 1; }
+
+password=$(jq -r '.source.password // ""' < $payload)
+test -z "$password" && { echo "Must supply 'password' source attribute"; exit 1; }
+
+command=$(jq -r '.params.command // ""' < $payload)
+test -z "$command" && { echo "Must supply 'command' parameter"; exit 1; }
+
+options=$(jq -r '.params.options // ""' < $payload)
+
+init_fly "$url" "$username" "$password"
+
+fly -t main $options "$command"
+
+jq -n "{
+  version: {}
+}" >&3
