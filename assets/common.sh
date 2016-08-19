@@ -4,7 +4,7 @@ fetch_fly() {
   local url="$1"
   local username="$2"
   local password="$3"
-  if test -x $FLY || {
+  test -x $FLY || {
     echo "Fetching fly...";
     curl -SsL -u "$username:$password" "$url/api/v1/cli?arch=amd64&platform=linux" > $FLY;
     chmod +x $FLY;
