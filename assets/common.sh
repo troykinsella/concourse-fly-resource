@@ -5,9 +5,9 @@ fetch_fly() {
   local username="$2"
   local password="$3"
   if test -x $FLY || {
-    echo "Fetching fly..."
-    curl -SsL -u "$username:$password" "$url/api/v1/cli?arch=amd64&platform=linux" > $FLY
-    chmod +x $FLY
+    echo "Fetching fly...";
+    curl -SsL -u "$username:$password" "$url/api/v1/cli?arch=amd64&platform=linux" > $FLY;
+    chmod +x $FLY;
   }
 }
 
@@ -23,9 +23,9 @@ login() {
 
   # This sucks
   echo "$out" | grep "fly -t main sync" > /dev/null && {
-    test -n "$tried" && return 1
-    fetch_fly
-    login "$url" "$username" "$password" yes
+    test -n "$tried" && return 1;
+    fetch_fly;
+    login "$url" "$username" "$password" yes;
   }
 }
 
