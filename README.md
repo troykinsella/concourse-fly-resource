@@ -46,3 +46,7 @@ Future: Import fly command output
 
 * `command`: _Required_. The `fly` command to execute.
 * `options`: _Optional_. The options to pass to `fly`.
+
+## License
+
+MIT © Troy Kinsella
