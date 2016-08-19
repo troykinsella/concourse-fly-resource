@@ -34,7 +34,7 @@ resources:
 
 ## Behaviour
 
-### `check`: No-op
+### `check`: No-Op
 
 ### `in`: No-Op
 
