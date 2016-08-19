@@ -1,4 +1,5 @@
 FROM alpine:edge
+MAINTAINER Troy Kinsella <troy.kinsella@gmail.com>
 
 COPY assets/* /opt/resource/
 
