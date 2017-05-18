@@ -13,6 +13,9 @@ cat > $payload <&0
 url=$(jq -r '.source.url // ""' < $payload)
 test -z "$url" && { echo "Must supply 'url' source attribute"; exit 1; }
 
+team=$(jq -r '.source.team // ""' < $payload)
+test -z "$team" && team=main
+
 username=$(jq -r '.source.username // ""' < $payload)
 test -z "$username" && { echo "Must supply 'username' source attribute"; exit 1; }
 
@@ -26,7 +29,7 @@ options=$(jq -r '.params.options // ""' < $payload)
 
 init_fly "$url" "$username" "$password"
 
-fly -t main "$command" $options
+fly -t main -n "$team" "$command" $options
 
 jq -n "{
   version: {}
