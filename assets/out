@@ -28,9 +28,9 @@ test -z "$command" && { echo "Must supply 'command' parameter"; exit 1; }
 
 options=$(jq -r '.params.options // ""' < $payload)
 
-init_fly "$url" "$username" "$password"
+init_fly "$url" "$username" "$password" "$team"
 
-fly -t main -n "$team" "$command" $options
+fly -t main "$command" $options
 
 jq -n "{
   version: {}

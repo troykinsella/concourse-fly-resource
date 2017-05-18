@@ -1,5 +1,5 @@
 FROM alpine:edge
-MAINTAINER Troy Kinsella <troy.kinsella@gmail.com>
+MAINTAINER Malte Schirmacher <malte.schirmacher@etecture.de>
 
 COPY assets/* /opt/resource/
 
