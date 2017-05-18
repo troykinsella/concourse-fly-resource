@@ -19,7 +19,7 @@ login() {
   local tried="$5"
 
   set +e
-  local out=$($FLY login -t main -n "$team"-c "$url" --username="$username" --password="$password" 2>&1)
+  local out=$($FLY login -t main -n "$team" -c "$url" --username="$username" --password="$password" 2>&1)
 
   # This sucks
   echo "$out" | grep "fly -t main sync" > /dev/null && {
