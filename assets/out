@@ -11,6 +11,7 @@ payload=$(mktemp $TMPDIR/fly-resource-request.XXXXXX)
 cat > $payload <&0
 
 url=$(jq -r '.source.url // ""' < $payload)
+test -z "$url" && url=$ATC_EXTERNAL_URL
 test -z "$url" && { echo "Must supply 'url' source attribute"; exit 1; }
 
 team=$(jq -r '.source.team // ""' < $payload)
