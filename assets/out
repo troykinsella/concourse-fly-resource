@@ -11,7 +11,11 @@ payload=$(mktemp $TMPDIR/fly-resource-request.XXXXXX)
 cat > $payload <&0
 
 url=$(jq -r '.source.url // ""' < $payload)
+test -z "$url" && url=$ATC_EXTERNAL_URL
 test -z "$url" && { echo "Must supply 'url' source attribute"; exit 1; }
+
+team=$(jq -r '.source.team // ""' < $payload)
+test -z "$team" && team=main
 
 username=$(jq -r '.source.username // ""' < $payload)
 test -z "$username" && { echo "Must supply 'username' source attribute"; exit 1; }
@@ -24,7 +28,7 @@ test -z "$command" && { echo "Must supply 'command' parameter"; exit 1; }
 
 options=$(jq -r '.params.options // ""' < $payload)
 
-init_fly "$url" "$username" "$password"
+init_fly "$url" "$username" "$password" "$team"
 
 fly -t main "$command" $options
 

@@ -21,6 +21,7 @@ Currently only HTTP basic authentication is supported.
 * `url`: _Required_. The base URL of the concourse instance to contact. (i.e. https://example.com/concourse)
 * `username`: _Required_. The concourse basic auth username.
 * `password`: _Required_. The concourse basic auth password.
+* `team`: _Optional_. The concourse team to work upon. Defaults to `main`
 
 ### Example
 
@@ -32,6 +33,7 @@ resources:
     url: {{concourse_url}}
     username: {{concourse_username}}
     password: {{concourse_password}}
+    team: {{concourse_team}}
 ```
 
 ## Behaviour
@@ -54,7 +56,7 @@ Concourse instance if not already present or if there is a version mismatch betw
 
 Parameters are passed through to the `fly` command as follows:
 ```sh
-fly -t main $command $options
+fly -t $team $command $options
 ```
 `main` is the name of the target Concourse instance.
 
