@@ -33,7 +33,7 @@ resources:
     url: {{concourse_url}}
     username: {{concourse_username}}
     password: {{concourse_password}}
-    team: your-team
+    team: {{concourse_team}}
 ```
 
 ## Behaviour
