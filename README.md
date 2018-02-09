@@ -23,6 +23,7 @@ Currently only HTTP basic authentication is supported.
 * `password`: _Required_. The concourse basic auth password.
 * `team`: _Optional_. The concourse team to login to. Default: "main".
 * `insecure`: _Optional_. Set to `true` to skip TLS verification.
+* `debug`: _Optional_. Set to `true` to print commands for troubleshooting, including credentials.
 
 ### Example
 
