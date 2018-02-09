@@ -33,11 +33,11 @@ login() {
     local out=$($FLY login -t main $insecure_arg -c $url -n $team --username=$username --password=$password 2>&1)
 
     # This sucks
-    echo "$out" | grep "fly -t main sync" > /dev/null && {
+    if echo "$out" | grep "fly -t main sync" > /dev/null; then
       test -n "$tried" && return 1
       fetch_fly $url $username $password $insecure
       login $url $username $password $team $insecure yes
-    }
+    fi
   )
 }
 
