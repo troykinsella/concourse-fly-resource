@@ -19,14 +19,29 @@ test -z "$username" && { echo "Must supply 'username' source attribute"; exit 1;
 password=$(jq -r '.source.password // ""' < $payload)
 test -z "$password" && { echo "Must supply 'password' source attribute"; exit 1; }
 
+team=$(jq -r '.source.team // ""' < $payload)
+
 command=$(jq -r '.params.command // ""' < $payload)
 test -z "$command" && { echo "Must supply 'command' parameter"; exit 1; }
 
 options=$(jq -r '.params.options // ""' < $payload)
+options_file=$(jq -r '.params.options_file // ""' < $payload)
 
-init_fly "$url" "$username" "$password"
+if [ -n "$options" ] && [ -n "$options_file" ]; then
+  echo "Must supply one of 'options' or 'options_file', not both"
+  exit 1
+fi
 
-fly -t main "$command" $options
+if [ -n "$options_file" ]; then
+  options=$(cat $options_file)
+fi
+
+init_fly $url $username $password $team
+
+(
+  set -x
+  fly -t main $command $options
+)
 
 jq -n "{
   version: {}
