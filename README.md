@@ -50,16 +50,16 @@ Future: Import fly command output
 
 Execute the given `fly` command along with given options. The `fly` client is downloaded from the target 
 Concourse instance if not already present or if there is a version mismatch between `fly` and Concourse.
+When multiple lines are present in the provided options, `fly` is executed separately for each line.
 
 #### Parameters
 
-* `command`: _Required_. The `fly` command to execute.
 * `options`: _Optional_. The options to pass to `fly`.
 * `options_file`: _Optional_. A file containing options to pass to `fly`.
 
 Parameters are passed through to the `fly` command as follows:
 ```sh
-fly -t main $command $options
+fly -t main $options
 ```
 `main` is the name of the target Concourse instance.
 
