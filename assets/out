@@ -20,16 +20,14 @@ password=$(jq -r '.source.password // ""' < $payload)
 test -z "$password" && { echo "Must supply 'password' source attribute"; exit 1; }
 
 team=$(jq -r '.source.team // "main"' < $payload)
-
 insecure=$(jq -r '.source.insecure // "false"' < $payload)
+debug=$(jq -r '.source.debug // "false"' < $payload)
 
 command=$(jq -r '.params.command // ""' < $payload)
 test -z "$command" && { echo "Must supply 'command' parameter"; exit 1; }
 
 options=$(jq -r '.params.options // ""' < $payload)
 options_file=$(jq -r '.params.options_file // ""' < $payload)
-
-debug=$(jq -r '.params.debug // "false"' < $payload)
 
 if [ -n "$options" ] && [ -n "$options_file" ]; then
   echo "Must supply one of 'options' or 'options_file', not both"
