@@ -22,6 +22,7 @@ Currently only HTTP basic authentication is supported.
 * `username`: _Required_. The concourse basic auth username.
 * `password`: _Required_. The concourse basic auth password.
 * `team`: _Optional_. The concourse team to login to. Default: "main".
+* `insecure`: _Optional_. Set to `true` to skip TLS verification.
 
 ### Example
 
