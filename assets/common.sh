@@ -5,9 +5,9 @@ fetch_fly() {
   local username=$2
   local password=$3
   test -x $FLY || {
-    echo "Fetching fly...";
-    curl -SsL -u "$username:$password" "$url/api/v1/cli?arch=amd64&platform=linux" > $FLY;
-    chmod +x $FLY;
+    echo "Fetching fly..."
+    curl -L -u "$username:$password" "$url/api/v1/cli?arch=amd64&platform=linux" -o $FLY
+    chmod +x $FLY
   }
 }
 
