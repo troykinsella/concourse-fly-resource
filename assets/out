@@ -21,7 +21,7 @@ test -z "$username" && { echo "Must supply 'username' source attribute"; exit 1;
 password=$(jq -r '.source.password // ""' < $payload)
 test -z "$password" && { echo "Must supply 'password' source attribute"; exit 1; }
 
-team=$(jq -r '.source.team // ""' < $payload)
+team=$(jq -r '.source.team // "main"' < $payload)
 
 insecure=$(jq -r '.source.insecure // "false"' < $payload)
 

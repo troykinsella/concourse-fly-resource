@@ -20,7 +20,7 @@ login() {
   local url=$1
   local username=$2
   local password=$3
-  local team=${4:-main}
+  local team=$4
   local insecure=$5
   local tried=$6
 
