@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
@@ -35,6 +35,11 @@ fi
 if [ -n "$options_file" ]; then
   options=$(cat $options_file)
 fi
+if [ -z "$options" ]; then
+  echo "Must supply some options to fly"
+  exit 1
+fi
+echo "Options: $options"
 
 test "$debug" = "true" && set -x
 
