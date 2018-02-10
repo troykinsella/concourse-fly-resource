@@ -27,7 +27,7 @@ debug=$(jq -r '.source.debug // "false"' < $payload)
 options=$(jq -r '.params.options // ""' < $payload)
 options_file=$(jq -r '.params.options_file // ""' < $payload)
 
-if [ -n "$options" ] && [ -n "$options_file" ]; then
+if [ -z "$options" ] && [ -z "$options_file" ]; then
   echo "Must supply one of 'options' or 'options_file', not both"
   exit 1
 fi
