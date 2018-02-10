@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -31,7 +31,6 @@ if [ -z "$options" ] && [ -z "$options_file" ]; then
   echo "Must supply one of 'options' or 'options_file', not both"
   exit 1
 fi
-
 if [ -n "$options_file" ]; then
   options=$(cat $options_file)
 fi
