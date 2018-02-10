@@ -45,7 +45,7 @@ while read -r line; do
     set -x
     fly -t main $line
   )
-done <<< $options
+done <<< "$options"
 
 jq -n "{
   version: {}
