@@ -23,6 +23,8 @@ test -z "$password" && { echo "Must supply 'password' source attribute"; exit 1;
 team=$(jq -r '.source.team // "main"' < $payload)
 insecure=$(jq -r '.source.insecure // "false"' < $payload)
 debug=$(jq -r '.source.debug // "false"' < $payload)
+multiline_lines=$(jq -r '.source.multiline_lines // "false"' < $payload)
+secure_output=$(jq -r '.source.secure_output // "true"' < $payload)
 
 options=$(jq -r '.params.options // ""' < $payload)
 options_file=$(jq -r '.params.options_file // ""' < $payload)
@@ -44,9 +46,17 @@ test "$debug" = "true" && set -x
 
 init_fly $url $username $password $team $insecure
 
-while read -r line; do
+READSWITCH="-r"
+
+if [ "$multiline_lines" = true ]; then
+  READSWITCH=""
+fi
+
+while read $READSWITCH line; do
   (
-    set -x
+    if [ "$secure_output" = false ]; then
+      set -x
+    fi
     fly -t main $line
   )
 done <<< "$options"
