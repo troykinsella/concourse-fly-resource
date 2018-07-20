@@ -7,7 +7,5 @@ RUN apk add --no-cache \
     bash \
     ca-certificates \
     curl \
-    jq \
-    openssh \
-    openssl \
-    && update-ca-certificates
+    jq ;\
+    update-ca-certificates
