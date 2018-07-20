@@ -24,6 +24,8 @@ Currently only HTTP basic authentication is supported.
 * `team`: _Optional_. The concourse team to login to. Default: "main".
 * `insecure`: _Optional_. Set to `true` to skip TLS verification.
 * `debug`: _Optional_. Set to `true` to print commands for troubleshooting, including credentials.
+* `secure_output`: _Optional_. Set to `true` to suppress output from `fly`.
+* `multiline_lines`: _Optional_. Set to `true` to interpret `\` as one line (mostly for big options line).
 
 ### Example
 
