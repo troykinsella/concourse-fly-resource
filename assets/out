@@ -40,7 +40,12 @@ if [ -z "$options" ]; then
   echo "Must supply some options to fly"
   exit 1
 fi
-echo "Options: $options"
+
+if [ "$secure_output" = false ]; then
+  echo "Options: $options"
+else
+  echo "Options: ##SUPRESSED##"
+fi
 
 test "$debug" = "true" && set -x
 
