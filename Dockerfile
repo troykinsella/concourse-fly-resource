@@ -1,5 +1,5 @@
 FROM alpine:edge
-MAINTAINER Troy Kinsella <troy.kinsella@gmail.com>
+LABEL MAINTAINER="Troy Kinsella <troy.kinsella@gmail.com>"
 
 COPY assets/* /opt/resource/
 
@@ -10,4 +10,4 @@ RUN apk add --no-cache \
     jq \
     openssh \
     openssl \
- && update-ca-certificates
+    && update-ca-certificates
