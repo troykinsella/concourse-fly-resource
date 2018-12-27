@@ -8,7 +8,7 @@ exec 1>&2 # redirect all output to stderr for logging
 . $(dirname $0)/common.sh
 cd $1
 
-payload=$(mktemp $TMPDIR/fly-resource-request.XXXXXX)
+payload=$(mktemp /tmp/fly-resource-request.XXXXXX)
 cat > $payload <&0
 
 url=$(jq -r '.source.url // ""' < $payload)
@@ -41,8 +41,15 @@ if [ -z "$options" ]; then
   exit 1
 fi
 
+expanded_options=$(sed "s/\$BUILD_ID/$BUILD_ID/g" <<<$options)
+expanded_options=$(sed "s/\$BUILD_TEAM_NAME/$BUILD_TEAM_NAME/g" <<<$expanded_options)
+expanded_options=$(sed "s/\$BUILD_JOB_NAME/$BUILD_JOB_NAME/g" <<<$expanded_options)
+expanded_options=$(sed "s/\$BUILD_PIPELINE_NAME/$BUILD_PIPELINE_NAME/g" <<<$expanded_options)
+expanded_options=$(sed "s/\$BUILD_NAME/$BUILD_NAME/g" <<<$expanded_options)
+expanded_options=$(sed "s@\$ATC_EXTERNAL_URL@$ATC_EXTERNAL_URL@g" <<<$expanded_options) # use another separator to avoid conflit with replaced url
+
 if [ "$secure_output" = false ]; then
-  echo "Options: $options"
+  echo "Options: $expanded_options"
 else
   echo "Options: ##SUPRESSED##"
 fi
@@ -64,7 +71,7 @@ while read $READSWITCH line; do
     fi
     fly -t main $line
   )
-done <<< "$options"
+done <<< "$expanded_options"
 
 jq -n "{
   version: {}
