@@ -1,9 +1,9 @@
 Concourse Fly Resource
 ======================
 
-NOTE: You may want to check out this: [concourse-pipeline-resource](https://github.com/concourse/concourse-pipeline-resource).
-
 A [Concourse](http://concourse.ci/) resource for manipulating `fly`.
+
+Note: This resource does not yet support Concourse 4+
 
 ## Resource Type Configuration
 
