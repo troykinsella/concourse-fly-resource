@@ -21,6 +21,7 @@ password=$(jq -r '.source.password // ""' < $payload)
 test -z "$password" && { echo "Must supply 'password' source attribute"; exit 1; }
 
 team=$(jq -r '.source.team // "main"' < $payload)
+target=$(jq -r '.source.target // "main"' < $payload)
 insecure=$(jq -r '.source.insecure // "false"' < $payload)
 debug=$(jq -r '.source.debug // "false"' < $payload)
 multiline_lines=$(jq -r '.source.multiline_lines // "false"' < $payload)
