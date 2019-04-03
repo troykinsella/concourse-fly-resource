@@ -23,15 +23,16 @@ login() {
   local team=$4
   local insecure=$5
   local tried=$6
+  local target=$7
 
   local insecure_arg=""
   test "$insecure" = "true" && insecure_arg="--insecure"
 
   echo "Logging in..."
-  local out=$($FLY login -t main $insecure_arg -c $url -n $team --username=$username --password=$password 2>&1)
+  local out=$($FLY login -t $target $insecure_arg -c $url -n $team --username=$username --password=$password 2>&1)
 
   # This sucks
-  if echo "$out" | grep "fly -t main sync" > /dev/null; then
+  if echo "$out" | grep "fly -t $target sync" > /dev/null; then
     test -n "$tried" && return 1
     fetch_fly $url $username $password $insecure
     login $url $username $password $team $insecure yes
