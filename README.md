@@ -23,6 +23,7 @@ Currently only HTTP basic authentication is supported.
 * `url`: _Required_. The base URL of the concourse instance to contact. (i.e. https://example.com/concourse)
 * `username`: _Required_. The concourse basic auth username.
 * `password`: _Required_. The concourse basic auth password.
+* `target`: _Optional_. The name of the target concourse instance. Default: "main".
 * `team`: _Optional_. The concourse team to login to. Default: "main".
 * `insecure`: _Optional_. Set to `true` to skip TLS verification.
 * `debug`: _Optional_. Set to `true` to print commands for troubleshooting, including credentials.
