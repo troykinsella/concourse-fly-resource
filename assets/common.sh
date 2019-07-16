@@ -20,8 +20,8 @@ login() {
   local password=$3
   local team=$4
   local insecure=$5
-  local tried=$6
-  local target=$7
+  local target=$6
+  local tried=$7
 
   local insecure_arg=""
   test "$insecure" = "true" && insecure_arg="--insecure"
@@ -33,7 +33,7 @@ login() {
   if echo "$out" | grep "fly -t $target sync" > /dev/null; then
     test -n "$tried" && return 1
     fetch_fly $url $insecure
-    login $url $username $password $team $insecure yes
+    login $url $username $password $team $insecure $target yes
   fi
 }
 
@@ -43,7 +43,8 @@ init_fly() {
   local password=$3
   local team=$4
   local insecure=$5
+  local target=$6
 
   fetch_fly $url $username $password $insecure
-  login $url $username $password $team $insecure
+  login $url $username $password $team $insecure $target
 }
