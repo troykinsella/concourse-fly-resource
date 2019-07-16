@@ -2,8 +2,6 @@ FLY=/usr/local/bin/fly
 
 fetch_fly() {
   local url=$1
-  local username=$2
-  local password=$3
   local insecure=$4
 
   local insecure_arg=""
@@ -11,7 +9,7 @@ fetch_fly() {
 
   if ! [ -x $FLY ]; then
     echo "Fetching fly..."
-    curl -SsL $insecure_arg -u "$username:$password" "$url/api/v1/cli?arch=amd64&platform=linux" -o $FLY
+    curl -SsL $insecure_arg "$url/api/v1/cli?arch=amd64&platform=linux" -o $FLY
     chmod +x $FLY
   fi
 }
@@ -34,7 +32,7 @@ login() {
   # This sucks
   if echo "$out" | grep "fly -t $target sync" > /dev/null; then
     test -n "$tried" && return 1
-    fetch_fly $url $username $password $insecure
+    fetch_fly $url $insecure
     login $url $username $password $team $insecure yes
   fi
 }
