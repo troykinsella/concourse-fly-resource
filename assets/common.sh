@@ -2,7 +2,7 @@ FLY=/usr/local/bin/fly
 
 fetch_fly() {
   local url=$1
-  local insecure=$4
+  local insecure=$2
 
   local insecure_arg=""
   test "$insecure" = "true" && insecure_arg="--insecure"
@@ -45,6 +45,6 @@ init_fly() {
   local insecure=$5
   local target=$6
 
-  fetch_fly $url $username $password $insecure
+  fetch_fly $url $insecure
   login $url $username $password $team $insecure $target
 }
