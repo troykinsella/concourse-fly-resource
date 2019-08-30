@@ -6,19 +6,19 @@ exec 3>&1 # make stdout available as fd 3 for the result
 exec 1>&2 # redirect all output to stderr for logging
 
 . $(dirname $0)/common.sh
-cd $1
+cd "$1"
 
 payload=$(mktemp /tmp/fly-resource-request.XXXXXX)
-cat > $payload <&0
+cat > "$payload" <&0
 
 url=$(jq -r '.source.url // ""' < $payload)
-test -z "$url" && { echo "Must supply 'url' source attribute"; exit 1; }
+test -z "$url" && { echo "Must supply 'url' source attribute" >&2; exit 1; }
 
 username=$(jq -r '.source.username // ""' < $payload)
-test -z "$username" && { echo "Must supply 'username' source attribute"; exit 1; }
+test -z "$username" && { echo "Must supply 'username' source attribute" >&2; exit 1; }
 
 password=$(jq -r '.source.password // ""' < $payload)
-test -z "$password" && { echo "Must supply 'password' source attribute"; exit 1; }
+test -z "$password" && { echo "Must supply 'password' source attribute" >&2; exit 1; }
 
 team=$(jq -r '.source.team // "main"' < $payload)
 target=$(jq -r '.source.target // "main"' < $payload)
@@ -31,14 +31,14 @@ options=$(jq -r '.params.options // ""' < $payload)
 options_file=$(jq -r '.params.options_file // ""' < $payload)
 
 if [ -z "$options" ] && [ -z "$options_file" ]; then
-  echo "Must supply one of 'options' or 'options_file', not both"
+  echo "Must supply one of 'options' or 'options_file', not both" >&2
   exit 1
 fi
 if [ -n "$options_file" ]; then
-  options=$(cat $options_file)
+  options=$(cat "$options_file")
 fi
 if [ -z "$options" ]; then
-  echo "Must supply some options to fly"
+  echo "Must supply some options to fly" >&2
   exit 1
 fi
 
@@ -57,7 +57,7 @@ fi
 
 test "$debug" = "true" && set -x
 
-init_fly $url $username $password $team $insecure $target
+init_fly "$url" "$username" "$password" "$team" "$insecure" "$target"
 
 READSWITCH="-r"
 
