@@ -57,7 +57,7 @@ fi
 
 test "$debug" = "true" && set -x
 
-init_fly $url $username $password $team $insecure
+init_fly $url $username $password $team $insecure $target
 
 READSWITCH="-r"
 
