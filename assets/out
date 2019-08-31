@@ -11,8 +11,7 @@ cd "$1"
 payload=$(mktemp /tmp/fly-resource-request.XXXXXX)
 cat > "$payload" <&0
 
-url=$(jq -r '.source.url // ""' < $payload)
-test -z "$url" && { echo "Must supply 'url' source attribute" >&2; exit 1; }
+url=$(jq -r ".source.url // \"$ATC_EXTERNAL_URL\"" < $payload)
 
 username=$(jq -r '.source.username // ""' < $payload)
 test -z "$username" && { echo "Must supply 'username' source attribute" >&2; exit 1; }
@@ -20,7 +19,7 @@ test -z "$username" && { echo "Must supply 'username' source attribute" >&2; exi
 password=$(jq -r '.source.password // ""' < $payload)
 test -z "$password" && { echo "Must supply 'password' source attribute" >&2; exit 1; }
 
-team=$(jq -r '.source.team // "main"' < $payload)
+team=$(jq -r ".source.team // \"$BUILD_TEAM_NAME\"" < $payload)
 target=$(jq -r '.source.target // "main"' < $payload)
 insecure=$(jq -r '.source.insecure // "false"' < $payload)
 debug=$(jq -r '.source.debug // "false"' < $payload)
@@ -70,7 +69,7 @@ while read $READSWITCH line; do
     if [ "$secure_output" = false ]; then
       set -x
     fi
-    fly -t main $line
+    fly -t "$target" "$line"
   )
 done <<< "$expanded_options"
 
