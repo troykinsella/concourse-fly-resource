@@ -75,7 +75,7 @@ When multiple lines are present in the provided options, `fly` is executed separ
 
 Parameters are passed through to the `fly` command as follows:
 ```sh
-fly -t <team> <options>
+fly -t <target> <options>
 ```
 `main` is the name of the target Concourse instance.
 
