@@ -77,7 +77,6 @@ Parameters are passed through to the `fly` command as follows:
 ```sh
 fly -t <target> <options>
 ```
-`main` is the name of the target Concourse instance.
 
 Concourse [metadata](https://concourse-ci.org/implementing-resource-types.html#resource-metadata)
 variables are supported in options.
