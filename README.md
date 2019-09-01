@@ -8,8 +8,8 @@ for tagged image versions available.
 
 Compatibility matrix:
 
-| Concourse Version | Resource Tag |
-| ----------------- | ------------ |
+| Concourse Version | Resource Image Tag |
+| ----------------- | ------------------ |
 | `5.x` | `2.x`, `latest` |
 | `4.x` | `2.x`, `latest` |
 | `3.x` | `1.x` |
