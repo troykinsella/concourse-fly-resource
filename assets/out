@@ -69,7 +69,7 @@ while read $READSWITCH line; do
     if [ "$secure_output" = false ]; then
       set -x
     fi
-    fly -t "$target" "$line"
+    fly -t "$target" $line
   )
 done <<< "$expanded_options"
 
