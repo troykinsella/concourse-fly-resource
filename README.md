@@ -67,6 +67,7 @@ Execute the given `fly` command along with given options. The `fly` client is do
 Concourse instance if not already present. If there is a version mismatch between `fly` and Concourse,
 a `fly sync` is performed.
 When multiple lines are present in the provided options, `fly` is executed separately for each line.
+On success, the resource emits a version containing the current Concourse build ID and a UTC timestamp.
 
 #### Parameters
 
